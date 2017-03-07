@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rap Diagnose</title>
+
+    <style>
+
+    #bu1 {
+    position: relative;
+    top: 10px;
+    left: 20px;
+}
+
+    #bu2 {
+    position: relative;
+    top: 10px;
+    left: 40px;
+}
+
+    #scroll-tab-5-progress {
+    position: relative;
+    top: 20px;
+    }
+
+    </style>
+
+
+    <meta charset="utf-8">
+    <script src="./js/material.min.js"></script>
+    <link rel="stylesheet" href="./css/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <script src="./js/serial-mode.js"></script>
+    <script>
+        window.$ = window.jQuery = require("./js/jquery-3.1.1.js");
+    </script>
+
+    <script>
+        var selectSerial
+
+        $(document).ready(function () {
+            $("#selectSerialList").change(function () {
+                selectSerial = $("#selectSerialList").val();
+            })
+        });
+
+        function progressDisplay(tab) {
+            document.getElementById(tab).style.display = "block";
+        }
+
+        function progressDisplayNone(tab) {
+            document.getElementById(tab).style.display = "none";
+        }
+
+        process.on('uncaughtException', function(err){
+            if (err.message == 'No path specified') {
+                progressDisplay('scroll-tab-1-output')
+                progressDisplay('scroll-tab-2-output')
+                progressDisplay('scroll-tab-3-output')
+                progressDisplay('scroll-tab-5-output')
+
+                document.getElementById('scroll-tab-1-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+                document.getElementById('scroll-tab-2-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+                document.getElementById('scroll-tab-3-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+                document.getElementById('scroll-tab-5-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+            }
+        });
+
+    </script>
+
+
+    <!-- Simple header with scrollable tabs. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+
+                <span class="mdl-layout-title">
+
+            <!--<div class="mdl-select mdl-js-select mdl-select&#45;&#45;floating-label">-->
+                <select class="mdl-select__input" id="selectSerialList" name="selectSerialList">
+                    <option value="">#选择串口</option>
+                </select>
+                    <!--</div>-->
+                </span>
+            </div>
+            <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                <a href="#scroll-tab-1" class="mdl-layout__tab"
+                   onclick="progressDisplayNone('scroll-tab-1-output');progressDisplay('scroll-tab-1-progress');serialGetVersion();">版本</a>
+                <a href="#scroll-tab-2" class="mdl-layout__tab"
+                   onclick="progressDisplayNone('scroll-tab-2-output');progressDisplay('scroll-tab-2-progress');serialGetWiFi();">WiFi</a>
+                <a href="#scroll-tab-3" class="mdl-layout__tab"
+                   onclick="progressDisplayNone('scroll-tab-3-output');progressDisplay('scroll-tab-3-progress');serialGetEthernet();">以太网</a>
+                <a href="#scroll-tab-4" class="mdl-layout__tab" onclick="confirm_serialResetSystem();">板卡重置</a>
+                <a href="#scroll-tab-5" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-5-progress');">板卡日志</a>
+                <a href="#scroll-tab-6" class="mdl-layout__tab">帮助</a>
+                <a href="#scroll-tab-7" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-7-output');progressDisplay('scroll-tab-7-progress');serialGetInfo()">板卡信息</a>
+            </div>
+        </header>
+
+        <div class="mdl-layout__drawer">
+
+            <span class="mdl-layout-title">It's Ruff</span>
+              <div>
+                    <button id="bu3" class="mdl-button mdl-js-button">
+                    访问 Ruff 论坛
+                    </button>
+                </div>
+            </div>
+        <main class="mdl-layout__content">
+
+            <section class="mdl-layout__tab-panel" id="scroll-tab-1">
+                <div class="page-content">
+                    <div id="scroll-tab-1-progress"
+                         class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <div id="scroll-tab-1-output"></div>
+                </div>
+            </section>
+
+            <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+                <div class="page-content">
+                    <div id="scroll-tab-2-progress"
+                         class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <div id="scroll-tab-2-output"></div>
+                </div>
+            </section>
+
+            <section class="mdl-layout__tab-panel" id="scroll-tab-3">
+                <div class="page-content">
+                 <div id="scroll-tab-3-progress"
+                         class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <div id="scroll-tab-3-output"></div>
+                </div>
+            </section>
+
+            <section class="mdl-layout__tab-panel" id="scroll-tab-4">
+                <div class="page-content">
+                 <div id="scroll-tab-4-progress"
+                         class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <div id="scroll-tab-4-output"></div>
+                </div>
+            </section>
+
+            <section class="mdl-layout__tab-panel" id="scroll-tab-5">
+                <div class="page-content">
+                    <!-- Raised button -->
+                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-5-output');progressDisplay('scroll-tab-5-progress');serialGetLog()">
+                    运行日志
+                    </button>
+                    <!-- Raised button -->
+                    <button id="bu2" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-5-output');confirm_resetGetBootLog()">
+                    开机日志
+                    </button>
+                    <div id="scroll-tab-5-progress"
+                         class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <div id='scroll-tab-5-output'><h5></h5>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="mdl-layout__tab-panel" id="scroll-tab-6">
+                <div class="page-content">
+                    <div class="markdown-body">
+                        <h3 id="toc_1">Windows 10</h3>
+
+                        <p>windows update 自动更新驱动。</p>
+
+                        <p>进入设备管理器，查看 <code>端口（COM 和 LPT）</code>，得到 <code>Prolific USB-to-Serial Common Port</code> 对应的 COM 端口。</p>
+
+                        <h3 id="toc_2">Windows 7</h3>
+
+                             <p>下载驱动：<br/>
+                            <code>http://www.prolific.com.tw/UserFiles/files/PL2303_Prolific_DriverInstaller_v1_12_0.zip</code></p>
+
+                        <p>进入设备管理器，查看 <code>端口（COM 和 LPT）</code>，得到 <code>Prolific USB-to-Serial Common Port</code> 对应的 COM 端口。</p>
+
+                        <h3 id="toc_3">Linux</h3>
+
+                        <p>在开发机插上开发板，输入如下命令</p>
+
+                        <p><code>sudo dmesg | tail</code></p>
+
+                        <p>可以看到如下信息</p>
+
+                        <pre><code>[   43.274276] usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[   43.274277] usb 2-1: Product: USB-Serial Controller
+[   43.274278] usb 2-1: Manufacturer: Prolific Technology Inc.
+[   44.324735] usbcore: registered new interface driver usbserial
+[   44.325487] usbcore: registered new interface driver usbserial_generic
+[   44.325498] usbserial: USB Serial support registered for generic
+[   44.328807] usbcore: registered new interface driver pl2303
+[   44.329056] usbserial: USB Serial support registered for pl2303
+[   44.329074] pl2303 2-1:1.0: pl2303 converter detected
+[   44.353000] usb 2-1: pl2303 converter now attached to ttyUSB0
+                    </code></pre>
+
+                        <p>因此开发板串口对应的 USB 设备文件的完整路径为： /dev/ttyUSB0</p>
+
+                        <h3 id="toc_4">Mac OSX</h3>
+
+                        <p>下载驱动：<br/>
+                            <code>http://www.prolific.com.tw/UserFiles/files/PL2303_MacOSX_1_6_1_20160309.zip</code></p>
+
+                        <p>在开发机上插上开发板，输入如下命令</p>
+
+                        <p><code>ls /dev/cu*</code></p>
+
+                        <p>可以看到如下信息</p>
+
+                        <pre><code>~ ls /dev/cu*
+/dev/cu.Bluetooth-Incoming-Port /dev/cu.usbserial
+                    </code></pre>
+
+                        <p>因此开发板串口对应的 USB 设备文件的完整路径为： <code>dev/cu.usbserial</code></p>
+
+                        <br><br><br><br>
+
+                    </div>
+                </div>
+            </section>
+
+              <section class="mdl-layout__tab-panel" id="scroll-tab-7">
+                <div class="page-content">
+                 <div id="scroll-tab-7-progress"
+                         class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <div id="scroll-tab-7-output">
+                    <div id="scroll-tab-7-output-version"></div>
+                    <div id="scroll-tab-7-output-wifi"></div>
+                    <div id="scroll-tab-7-output-ethernet"></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</head>
+
+<script>
+
+const shell = require('electron').shell
+
+const exLinksBtn = document.getElementById('bu3')
+exLinksBtn.addEventListener('click', function (event) {
+  shell.openExternal('http://community.ruff.io')
+})
+
+</script>
+
+
+<body>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "Rap-Diagnose",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "serialport": "^4.0.7"
+  }
+}
