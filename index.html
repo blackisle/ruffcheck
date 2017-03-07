@@ -54,15 +54,19 @@
 
         process.on('uncaughtException', function(err){
             if (err.message == 'No path specified') {
-                progressDisplay('scroll-tab-1-output')
-                progressDisplay('scroll-tab-2-output')
-                progressDisplay('scroll-tab-3-output')
+                // progressDisplay('scroll-tab-1-output')
+                // progressDisplay('scroll-tab-2-output')
+                // progressDisplay('scroll-tab-3-output')
                 progressDisplay('scroll-tab-5-output')
+                progressDisplay('scroll-tab-7-output')
 
-                document.getElementById('scroll-tab-1-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
-                document.getElementById('scroll-tab-2-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
-                document.getElementById('scroll-tab-3-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+
+                // document.getElementById('scroll-tab-1-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+                // document.getElementById('scroll-tab-2-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+                // document.getElementById('scroll-tab-3-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
                 document.getElementById('scroll-tab-5-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+                document.getElementById('scroll-tab-7-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+
             }
         });
 
@@ -86,16 +90,17 @@
             </div>
             <!-- Tabs -->
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                <a href="#scroll-tab-1" class="mdl-layout__tab"
+                <!--<a href="#scroll-tab-1" class="mdl-layout__tab"
                    onclick="progressDisplayNone('scroll-tab-1-output');progressDisplay('scroll-tab-1-progress');serialGetVersion();">版本</a>
                 <a href="#scroll-tab-2" class="mdl-layout__tab"
                    onclick="progressDisplayNone('scroll-tab-2-output');progressDisplay('scroll-tab-2-progress');serialGetWiFi();">WiFi</a>
                 <a href="#scroll-tab-3" class="mdl-layout__tab"
-                   onclick="progressDisplayNone('scroll-tab-3-output');progressDisplay('scroll-tab-3-progress');serialGetEthernet();">以太网</a>
+                   onclick="progressDisplayNone('scroll-tab-3-output');progressDisplay('scroll-tab-3-progress');serialGetEthernet();">以太网</a>-->
+                <a href="#scroll-tab-7" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-7-output');progressDisplay('scroll-tab-7-progress');serialGetInfo()">板卡信息</a>
                 <a href="#scroll-tab-4" class="mdl-layout__tab" onclick="confirm_serialResetSystem();">板卡重置</a>
                 <a href="#scroll-tab-5" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-5-progress');">板卡日志</a>
                 <a href="#scroll-tab-6" class="mdl-layout__tab">帮助</a>
-                <a href="#scroll-tab-7" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-7-output');progressDisplay('scroll-tab-7-progress');serialGetInfo()">板卡信息</a>
+
             </div>
         </header>
 
@@ -110,7 +115,7 @@
             </div>
         <main class="mdl-layout__content">
 
-            <section class="mdl-layout__tab-panel" id="scroll-tab-1">
+            <!--<section class="mdl-layout__tab-panel" id="scroll-tab-1">
                 <div class="page-content">
                     <div id="scroll-tab-1-progress"
                          class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
@@ -132,7 +137,7 @@
                          class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
                     <div id="scroll-tab-3-output"></div>
                 </div>
-            </section>
+            </section>-->
 
             <section class="mdl-layout__tab-panel" id="scroll-tab-4">
                 <div class="page-content">
