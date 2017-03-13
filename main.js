@@ -2,9 +2,10 @@ const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 let mainWindow
+let initWindow
 var ipc = require('electron').ipcMain;
 
-function createWindow() {
+function createMainWindow() {
     mainWindow = new BrowserWindow({
         width: 640,
         height: 480,
@@ -22,7 +23,25 @@ function createWindow() {
 
 }
 
-ipc.on('create-sub-window', function() {
+function createInitWindow() {
+    initWindow = new BrowserWindow({
+        width: 640,
+        height: 480,
+        frame: true
+    })
+
+    initWindow.loadURL(`file://${__dirname}/init.html`);
+
+    initWindow.webContents.openDevTools()
+
+    initWindow.on('closed', function() {
+
+        initWindow = null
+    })
+
+}
+
+ipc.on('create-init-window', function() {
     subWindow = new BrowserWindow({
         width: 640,
         height: 480,
@@ -32,8 +51,8 @@ ipc.on('create-sub-window', function() {
         frame: false,
         alwaysOnTop: true
     })
-    //subWindow.webContents.openDevTools()
-    subWindow.loadURL('file://' + __dirname + '/sub.html')
+    subWindow.webContents.openDevTools()
+    subWindow.loadURL('file://' + __dirname + '/init.html')
     mainWindow.hide()
 })
 
@@ -47,12 +66,16 @@ ipc.on('create-main-window', function() {
         frame: false,
         alwaysOnTop: true
     })
-    //subWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
     mainWindow.loadURL('file://' + __dirname + '/index.html')
-    subWindow.hide()
+    initWindow.hide()
 })
 
-app.on('ready', createWindow);
+global.sharedObject = {
+  selectedSerial: ''
+}
+
+app.on('ready', createInitWindow);
 
 ipc.on('close', function() {
     app.quit()
