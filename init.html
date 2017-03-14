@@ -2,6 +2,7 @@
 <html>
 <script>
     window.$ = window.jQuery = require("./js/jquery-3.1.1.js");
+
     var ipc = require('electron').ipcRenderer;
 </script>
 
@@ -9,6 +10,8 @@
 <meta charset="utf-8">
 <script src="./js/material.min.js"></script>
 <link rel="stylesheet" href="./css/material.indigo-pink.min.css">
+<link rel="stylesheet" href="./css/base.css">
+
 
 <style>
          .mdl-select {
@@ -151,6 +154,8 @@
 
 
 <script>
+    getSerialList()
+
 
         var selectSerial
 
@@ -327,38 +332,83 @@
 
 
 <body>
-    <form action="#">
-      <div class="mdl-select mdl-js-select mdl-select--floating-label">
-        <select class="mdl-select__input" id="selectSerialList" name="selectSerialList">
-          <option value=""></option>
-        </select>
-        <label class="mdl-select__label" for="professsion">从列表选择串口</label>
-      </div>
-    </form>
-
-
-             <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="">
-                    确定
-            </button>
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">选择驱动</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
 
 <div>
-<h2>请依照一下步骤进行开发板串口驱动的初始化。</h2>
 
-<h4>1. 通过 USB 线缆连接开发板和开发电脑</h4>
-
-<h4>2. 安装驱动</h4>
-
+<h6>1. 通过 USB 线缆连接开发板和开发电脑</h6>
+<h6>2. 安装驱动</h6>
 <ul><li>Windows 10: 通过 windows update 自动更新驱动。</li><li>Windows 7: 下载驱动, http://www.prolific.com.tw/UserFiles/files/PL2303<em>Prolific</em>DriverInstaller<em>v1</em>12_0.zip</li></ul>
+<h6>3. 确认端口</h6>
 
-<h4>3. 确认端口</h4>
+<ol type='a'>
+  <li>开始→运行→<code>devmgmt.msc</code></li>
+  <li>在设备管理器，查看 <code>端口（COM 和 LPT）</code></li>
+  <li>确认<code>Prolific USB-to-Serial Common Port</code> 对应的 COM 端口。</li>
+  <li>点击刷新获取串口列表</li>
+</ol>
 
-<p>开始→运行→<code>devmgmt.msc）</code>，进入设备管理器，查看 <code>端口（COM 和 LPT）</code>，得到 <code>Prolific USB-to-Serial Common Port</code> 对应的 COM 端口。</p>
+</div>
+
+<form action="#">
+  <div class="mdl-select mdl-js-select mdl-select--floating-label">
+    <select class="mdl-select__input" id="selectSerialList" name="selectSerialList">
+      <option value=""></option>
+    </select>
+    <label class="mdl-select__label" for="professsion">从列表选择串口</label>
+  </div>
+</form>
+
+<button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="">
+        刷新
+</button>
+
+
+<button id="bu2" class="mdl-button mdl-js-button mdl-button--raised" onclick="">
+      确定
+</button>
+
     </div>
+  </main>
+</div>
+
 
   </body>
 
 <script>
+
     document.getElementById('bu1').addEventListener('click', function() {
+        getSerialList()
+    })
+
+    document.getElementById('bu2').addEventListener('click', function() {
         ipc.send('create-main-window', '123')
         ipc.send()
     })

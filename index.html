@@ -6,7 +6,7 @@
 
     <style>
 
-    #bu1 {
+    /*#bu1 {
     position: relative;
     top: 10px;
     left: 20px;
@@ -16,12 +16,12 @@
     position: relative;
     top: 10px;
     left: 40px;
-}
+}*/
 
-    #scroll-tab-5-progress {
+    /*#scroll-tab-5-progress {
     position: relative;
     top: 20px;
-    }
+    }*/
 
     </style>
 
@@ -37,6 +37,7 @@
 
     <script>
         var selectSerial = require('electron').remote.getGlobal('sharedObject').selectedSerial
+        console.log(selectSerial)
 
         $(document).ready(function () {
             $("#selectSerialList").change(function () {
@@ -82,11 +83,11 @@
                 <!-- Title -->
 
                 <span class="mdl-layout-title">
-
+                    当前选择串口为 <script>document.write(selectSerial);</script>
             <!--<div class="mdl-select mdl-js-select mdl-select&#45;&#45;floating-label">-->
-                <select class="mdl-select__input" id="selectSerialList" name="selectSerialList">
+                <!--<select class="mdl-select__input" id="selectSerialList" name="selectSerialList">
                     <option value="">#选择串口</option>
-                </select>
+                </select>-->
                     <!--</div>-->
                 </span>
             </div>
@@ -101,6 +102,8 @@
                 <a href="#scroll-tab-7" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-7-output');progressDisplay('scroll-tab-7-progress');serialGetInfo()">板卡信息</a>
                 <a href="#scroll-tab-4" class="mdl-layout__tab" onclick="confirm_serialResetSystem();">板卡重置</a>
                 <a href="#scroll-tab-5" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-5-progress');">板卡日志</a>
+                <!--<a href="#scroll-tab-5" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-5-output');confirm_resetGetBootLog()">板卡日志</a>-->
+
                 <a href="#scroll-tab-6" class="mdl-layout__tab">帮助</a>
 
             </div>
@@ -151,19 +154,24 @@
 
             <section class="mdl-layout__tab-panel" id="scroll-tab-5">
                 <div class="page-content">
-                    <!-- Raised button -->
-                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-5-output');progressDisplay('scroll-tab-5-progress');serialGetLog()">
-                    运行日志
-                    </button>
-                    <!-- Raised button -->
-                    <button id="bu2" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-5-output');confirm_resetGetBootLog()">
-                    开机日志
-                    </button>
                     <div id="scroll-tab-5-progress"
                          class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-                    <div id='scroll-tab-5-output'><h5></h5>
+                     <!--Raised button -->
+                    <!--<button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-5-output');progressDisplay('scroll-tab-5-progress');serialGetLog()">
+                    运行日志
+                    </button>-->
+                     <!--Raised button -->
+                    <div><h5>注意：获取日志需要重启开发板</h5></div>
+                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-5-output');confirm_resetGetBootLog()">
+                    获取日志
+                    </button>
+                    <div id='scroll-tab-5-output'></div>
 
-                    </div>
+                    <!--<div id="scroll-tab-5-output-boot-log"></div>-->
+                    <!--<div id="scroll-tab-5-output-run-log"></div>-->
+
+
+
                 </div>
             </section>
 

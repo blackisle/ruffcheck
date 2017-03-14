@@ -7,8 +7,8 @@ var ipc = require('electron').ipcMain;
 
 function createMainWindow() {
     mainWindow = new BrowserWindow({
-        width: 640,
-        height: 480,
+        width: 556,
+        height: 556,
         frame: true
     })
 
@@ -25,8 +25,8 @@ function createMainWindow() {
 
 function createInitWindow() {
     initWindow = new BrowserWindow({
-        width: 640,
-        height: 480,
+        width: 556,
+        height: 556,
         frame: true
     })
 
@@ -43,13 +43,13 @@ function createInitWindow() {
 
 ipc.on('create-init-window', function() {
     subWindow = new BrowserWindow({
-        width: 640,
-        height: 480,
+        width: 556,
+        height: 556,
         fullscreen: false,
-        resizable: false,
-        skipTaskbar: true,
-        frame: false,
-        alwaysOnTop: true
+        resizable: true,
+        skipTaskbar: false,
+        frame: true,
+        alwaysOnTop: false
     })
     subWindow.webContents.openDevTools()
     subWindow.loadURL('file://' + __dirname + '/init.html')
@@ -58,13 +58,13 @@ ipc.on('create-init-window', function() {
 
 ipc.on('create-main-window', function() {
     mainWindow = new BrowserWindow({
-        width: 640,
-        height: 480,
+        width: 556,
+        height: 556,
         fullscreen: false,
-        resizable: false,
-        skipTaskbar: true,
-        frame: false,
-        alwaysOnTop: true
+        resizable: true,
+        skipTaskbar: false,
+        frame: true,
+        alwaysOnTop: false
     })
     mainWindow.webContents.openDevTools()
     mainWindow.loadURL('file://' + __dirname + '/index.html')
