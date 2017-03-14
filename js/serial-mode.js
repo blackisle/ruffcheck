@@ -204,7 +204,7 @@ function serialGetWiFi() {
             }
             else {
                 // progressDisplayNone('scroll-tab-2-progress')
-                document.getElementById('scroll-tab-7-output-wifi').innerHTML = '<h1>WiFi 地址：' + result + '</h1>'
+                document.getElementById('scroll-tab-7-output-wifi').innerHTML = '<h3>WiFi 地址：' + result + '</h3>'
                 // progressDisplay('scroll-tab-2-output')
                 port.close()
             }
