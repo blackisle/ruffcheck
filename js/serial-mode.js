@@ -72,12 +72,12 @@ function serialResetSystem() {
 
             if (result == null) {
                 progressDisplayNone('scroll-tab-4-progress');
-                document.getElementById('scroll-tab-4-output').innerHTML = '重试一次';
+                document.getElementById('scroll-tab-4-output').innerHTML = '<h3>' + '重试一次' + '</h3>';
                 port.close();
             }
             else {
                 progressDisplayNone('scroll-tab-4-progress');
-                document.getElementById('scroll-tab-4-output').innerHTML = '重置成功';
+                document.getElementById('scroll-tab-4-output').innerHTML = '<h3>' + '重置成功' + '</h3>';
                 port.close();
             }
         }, 15000)
@@ -300,8 +300,10 @@ function serialGetLog() {
         });
 
         setTimeout(function () {
+            output = output.replace(/root@OpenWrt:\/# dmesg/,'###Log###')
+            // console.log(output.match(/dmesg/))
             progressDisplayNone('scroll-tab-5-progress')
-            document.getElementById('scroll-tab-5-output-run-log').innerText = output
+            document.getElementById('scroll-tab-5-output').innerText = output
             progressDisplay('scroll-tab-5-output')
             port.close()
         }, 10000)
@@ -351,10 +353,13 @@ function serialGetBootLog() {
 
 
         setTimeout(function () {
-            console.log('output', output)
+            // console.log('output', output)
             progressDisplayNone('scroll-tab-5-progress')
-            output.replace(/dmesg/,'###Log###')
-            output.replace(/root@OpenWrt:\/# logread/,'###Log###')
+            output = output.replace(/root@OpenWrt:\/# dmesg/,'###Log###')
+            output = output.replace(/root@OpenWrt:\/# logread/,'###Log###')
+            output = output.replace(/dmesg/,'')
+            output = output.replace(/logread/,'')
+            output = output.replace(/root@OpenWrt:\/#/,'')
             document.getElementById('scroll-tab-5-output').innerText = output
             progressDisplay('scroll-tab-5-output')
             port.close()

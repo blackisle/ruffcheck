@@ -7,8 +7,8 @@ var ipc = require('electron').ipcMain;
 
 function createMainWindow() {
     mainWindow = new BrowserWindow({
-        width: 556,
-        height: 556,
+        width: 430,
+        height: 430,
         frame: true
     })
 
@@ -25,7 +25,7 @@ function createMainWindow() {
 
 function createInitWindow() {
     initWindow = new BrowserWindow({
-        width: 556,
+        width: 576,
         height: 556,
         frame: true
     })
@@ -43,7 +43,7 @@ function createInitWindow() {
 
 ipc.on('create-init-window', function() {
     subWindow = new BrowserWindow({
-        width: 556,
+        width: 576,
         height: 556,
         fullscreen: false,
         resizable: true,
@@ -58,8 +58,8 @@ ipc.on('create-init-window', function() {
 
 ipc.on('create-main-window', function() {
     mainWindow = new BrowserWindow({
-        width: 556,
-        height: 556,
+        width: 430,
+        height: 430,
         fullscreen: false,
         resizable: true,
         skipTaskbar: false,
@@ -82,9 +82,9 @@ ipc.on('close', function() {
 })
 
 app.on('window-all-closed', function() {
-    if (process.platform !== 'darwin') {
+    // if (process.platform !== 'darwin') {
         app.quit()
-    }
+    // }
 })
 
 

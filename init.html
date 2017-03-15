@@ -337,26 +337,16 @@
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">选择驱动</span>
+      <span class="mdl-layout-title">初始化</span>
       <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation. We hide it in small screens. -->
-      <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-      </nav>
-    </div>
   </header>
   <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Title</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-    </nav>
+<span class="mdl-layout-title">It's Ruff</span>
+              <div>
+                    <button id="bu3" class="mdl-button mdl-js-button">
+                    访问 Ruff 论坛
+                    </button>
+                </div>
   </div>
   <main class="mdl-layout__content">
     <div class="page-content">
@@ -365,7 +355,10 @@
 
 <h6>1. 通过 USB 线缆连接开发板和开发电脑</h6>
 <h6>2. 安装驱动</h6>
-<ul><li>Windows 10: 通过 windows update 自动更新驱动。</li><li>Windows 7: 下载驱动, http://www.prolific.com.tw/UserFiles/files/PL2303<em>Prolific</em>DriverInstaller<em>v1</em>12_0.zip</li></ul>
+<ul>
+<li>Windows 10: 通过 windows update 自动更新驱动。</li>
+<li>Windows 7: 下载驱动, http://www.prolific.com.tw/UserFiles/files/PL2303_Prolific_DriverInstaller_v1_12_0.zip</li>
+</ul>
 <h6>3. 确认端口</h6>
 
 <ol type='a'>
@@ -374,7 +367,6 @@
   <li>确认<code>Prolific USB-to-Serial Common Port</code> 对应的 COM 端口。</li>
   <li>点击刷新获取串口列表</li>
 </ol>
-
 </div>
 
 <form action="#">
@@ -412,6 +404,16 @@
         ipc.send('create-main-window', '123')
         ipc.send()
     })
+</script>
+
+<script>
+
+const shell = require('electron').shell
+
+const exLinksBtn = document.getElementById('bu3')
+exLinksBtn.addEventListener('click', function (event) {
+  shell.openExternal('http://community.ruff.io')
+})
 </script>
 
 </html>
