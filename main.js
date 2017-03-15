@@ -12,7 +12,7 @@ function createMainWindow() {
         frame: true
     })
 
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 
     mainWindow.webContents.openDevTools()
 
@@ -30,7 +30,7 @@ function createInitWindow() {
         frame: true
     })
 
-    initWindow.loadURL(`file://${__dirname}/init.html`);
+    initWindow.loadURL(`file://${__dirname}/app/init.html`);
 
     initWindow.webContents.openDevTools()
 
@@ -52,7 +52,7 @@ ipc.on('create-init-window', function() {
         alwaysOnTop: false
     })
     subWindow.webContents.openDevTools()
-    subWindow.loadURL('file://' + __dirname + '/init.html')
+    subWindow.loadURL('file://' + __dirname + '/app/init.html')
     mainWindow.hide()
 })
 
@@ -67,7 +67,7 @@ ipc.on('create-main-window', function() {
         alwaysOnTop: false
     })
     mainWindow.webContents.openDevTools()
-    mainWindow.loadURL('file://' + __dirname + '/index.html')
+    mainWindow.loadURL('file://' + __dirname + '/app/index.html')
     initWindow.hide()
 })
 
@@ -82,9 +82,7 @@ ipc.on('close', function() {
 })
 
 app.on('window-all-closed', function() {
-    // if (process.platform !== 'darwin') {
         app.quit()
-    // }
 })
 
 

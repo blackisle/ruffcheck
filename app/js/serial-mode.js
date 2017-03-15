@@ -1,40 +1,39 @@
 const os = require('os');
 const SerialPort = require("serialport");
-
 var result
 
 
 function confirm_serialResetSystem() {
     if (confirm("确定板卡重置吗？")) {
         if (confirm("此操作将会清除开发板上的设置和数据。")) {
-            progressDisplay('scroll-tab-4-progress')
-            document.getElementById('scroll-tab-4-output').innerHTML = ''
+            progressDisplay('scroll-tab-2-progress')
+            document.getElementById('scroll-tab-2-output').innerHTML = ''
             serialResetSystem()
         } else {
             alert("取消板卡重置")
-            progressDisplayNone('scroll-tab-4-progress')
-            document.getElementById('scroll-tab-4-output').innerHTML = ''
+            progressDisplayNone('scroll-tab-2-progress')
+            document.getElementById('scroll-tab-2-output').innerHTML = ''
         }
     } else {
         alert("取消板卡重置");
-        progressDisplayNone('scroll-tab-4-progress')
-        document.getElementById('scroll-tab-4-output').innerHTML = ''
+        progressDisplayNone('scroll-tab-2-progress')
+        document.getElementById('scroll-tab-2-output').innerHTML = ''
     }
 }
 
 function confirm_resetGetBootLog() {
     if (confirm("获取日志需要重启开发板")) {
         if (confirm("点击确定后，按下开发板上的红色 HRESET 按钮，整个过程需要大约 2 分钟")) {
-            progressDisplay('scroll-tab-5-progress')
-            document.getElementById('scroll-tab-5-output').innerHTML = ''
+            progressDisplay('scroll-tab-3-progress')
+            document.getElementById('scroll-tab-3-output').innerHTML = ''
             serialGetBootLog()
         } else {
             alert("取消");
-            document.getElementById('scroll-tab-5-output').innerHTML = ''
+            document.getElementById('scroll-tab-3-output').innerHTML = ''
         }
     } else {
         alert("取消");
-        document.getElementById('scroll-tab-5-output').innerHTML = ''
+        document.getElementById('scroll-tab-3-output').innerHTML = ''
     }
 }
 
@@ -71,13 +70,13 @@ function serialResetSystem() {
             var result = output.match(re)[0]
 
             if (result == null) {
-                progressDisplayNone('scroll-tab-4-progress');
-                document.getElementById('scroll-tab-4-output').innerHTML = '<h3>' + '重试一次' + '</h3>';
+                progressDisplayNone('scroll-tab-2-progress');
+                document.getElementById('scroll-tab-2-output').innerHTML = '<h3>' + '重试一次' + '</h3>';
                 port.close();
             }
             else {
-                progressDisplayNone('scroll-tab-4-progress');
-                document.getElementById('scroll-tab-4-output').innerHTML = '<h3>' + '重置成功' + '</h3>';
+                progressDisplayNone('scroll-tab-2-progress');
+                document.getElementById('scroll-tab-2-output').innerHTML = '<h3>' + '重置成功' + '</h3>';
                 port.close();
             }
         }, 15000)
@@ -137,16 +136,12 @@ function serialGetVersion() {
             var result = output.match(re)[0]
 
             if (result == null) {
-                // progressDisplayNone('scroll-tab-1-progress')
-                document.getElementById('scroll-tab-7-output-version').innerHTML = '<h3>' + '重试一次' + '</h3>'
-                // progressDisplay('scroll-tab-1-output')
+                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>' + '重试一次' + '</h3>'
 
                 port.close()
             }
             else {
-                // progressDisplayNone('scroll-tab-1-progress')
-                document.getElementById('scroll-tab-7-output-version').innerHTML = '<h3>系统版本：' + result + '</h3>'
-                // progressDisplay('scroll-tab-1-output')
+                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>系统版本：' + result + '</h3>'
 
 
                 port.close()
@@ -191,21 +186,15 @@ function serialGetWiFi() {
             var result = output.match(re)[1]
 
             if (result == null) {
-                // progressDisplayNone('scroll-tab-2-progress')
-                document.getElementById('scroll-tab-7-output-wifi').innerHTML = '<h3>' + 'WiFi：重试一次' + '</h3>'
-                // progressDisplay('scroll-tab-2-output')
+                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>' + 'WiFi：重试一次' + '</h3>'
                 port.close()
             }
             else if (result == '192.168.78.1') {
-                // progressDisplayNone('scroll-tab-2-progress')
-                document.getElementById('scroll-tab-7-output-wifi').innerHTML = '<h3>' + 'WiFi：未配置' + '</h3>'
-                // progressDisplay('scroll-tab-2-output')
+                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>' + 'WiFi：未配置' + '</h3>'
                 port.close()
             }
             else {
-                // progressDisplayNone('scroll-tab-2-progress')
-                document.getElementById('scroll-tab-7-output-wifi').innerHTML = '<h3>WiFi 地址：' + result + '</h3>'
-                // progressDisplay('scroll-tab-2-output')
+                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>WiFi 地址：' + result + '</h3>'
                 port.close()
             }
         }, 1000)
@@ -246,15 +235,11 @@ function serialGetEthernet() {
             var re = /eth0.2\s[\s\S]{0,100}inet addr:([\d.]*)/;
 
             if (output.match(re) == null) {
-                // progressDisplayNone('scroll-tab-3-progress')
-                document.getElementById('scroll-tab-7-output-ethernet').innerHTML ='<h3>' + '以太网：未连接' + '</h3>'
-                // progressDisplay('scroll-tab-3-output')
+                document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h3>' + '以太网：未连接' + '</h3>'
                 port.close()
             }
             else {
-                // progressDisplayNone('scroll-tab-3-progress')
-                document.getElementById('scroll-tab-7-output-ethernet').innerHTML ='<h3>以太网 IP 地址：' + output.match(re)[1] + '</h3>'
-                // progressDisplay('scroll-tab-3-output')
+                document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h3>以太网 IP 地址：' + output.match(re)[1] + '</h3>'
                 port.close()
             }
         }, 1000)
@@ -301,10 +286,9 @@ function serialGetLog() {
 
         setTimeout(function () {
             output = output.replace(/root@OpenWrt:\/# dmesg/,'###Log###')
-            // console.log(output.match(/dmesg/))
-            progressDisplayNone('scroll-tab-5-progress')
-            document.getElementById('scroll-tab-5-output').innerText = output
-            progressDisplay('scroll-tab-5-output')
+            progressDisplayNone('scroll-tab-3-progress')
+            document.getElementById('scroll-tab-3-output').innerText = output
+            progressDisplay('scroll-tab-3-output')
             port.close()
         }, 10000)
 
@@ -353,17 +337,15 @@ function serialGetBootLog() {
 
 
         setTimeout(function () {
-            // console.log('output', output)
-            progressDisplayNone('scroll-tab-5-progress')
+            progressDisplayNone('scroll-tab-3-progress')
             output = output.replace(/root@OpenWrt:\/# dmesg/,'###Log###')
             output = output.replace(/root@OpenWrt:\/# logread/,'###Log###')
             output = output.replace(/dmesg/,'')
             output = output.replace(/logread/,'')
             output = output.replace(/root@OpenWrt:\/#/,'')
-            document.getElementById('scroll-tab-5-output').innerText = output
-            progressDisplay('scroll-tab-5-output')
+            document.getElementById('scroll-tab-3-output').innerText = output
+            progressDisplay('scroll-tab-3-output')
             port.close()
-
         }, 110000)
 
 
@@ -382,7 +364,7 @@ function serialGetInfo() {
     }, 10000)
 
     setTimeout(function(){
-        progressDisplay('scroll-tab-7-output')
-        progressDisplayNone('scroll-tab-7-progress')
+        progressDisplay('scroll-tab-1-output')
+        progressDisplayNone('scroll-tab-1-progress')
     }, 15000)
 }
