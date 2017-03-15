@@ -56,8 +56,8 @@
             </div>
             <!-- Tabs -->
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                <a href="#scroll-tab-1" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-1-output');progressDisplay('scroll-tab-1-progress');serialGetInfo()">板卡信息</a>
-                <a href="#scroll-tab-2" class="mdl-layout__tab" onclick="confirm_serialResetSystem();">板卡重置</a>
+                <a href="#scroll-tab-1" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-1-progress');">板卡信息</a>
+                <a href="#scroll-tab-2" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-2-progress');">板卡重置</a>
                 <a href="#scroll-tab-3" class="mdl-layout__tab" onclick="progressDisplayNone('scroll-tab-3-progress');">板卡日志</a>
             </div>
         </header>
@@ -65,16 +65,36 @@
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">It's Ruff</span>
             <div>
-                <button id="bu3" class="mdl-button mdl-js-button">
+                <button id="bu01" class="mdl-button mdl-js-button">
                     访问 Ruff 论坛
                     </button>
             </div>
         </div>
 
         <main class="mdl-layout__content">
+            <section class="mdl-layout__tab-panel" id="scroll-tab-1">
+                <div class="page-content">
+                    <div id="scroll-tab-1-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplay('scroll-tab-1-progress');serialGetVersion()">
+                    获取信息
+                    </button>
+                    <div id="scroll-tab-1-output">
+                        <div id="scroll-tab-1-output-version"></div>
+                        <div id="scroll-tab-1-output-wifi"></div>
+                        <div id="scroll-tab-1-output-ethernet"></div>
+                    </div>
+                </div>
+            </section>
+
             <section class="mdl-layout__tab-panel" id="scroll-tab-2">
                 <div class="page-content">
                     <div id="scroll-tab-2-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <div>
+                        <h5>注意：板卡重置将会清除开发板上的设置和数据</h5>
+                    </div>
+                    <button id="bu2" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-3-output');confirm_serialResetSystem();">
+                    板卡重置
+                    </button>
                     <div id="scroll-tab-2-output"></div>
                 </div>
             </section>
@@ -85,24 +105,12 @@
                     <div>
                         <h5>注意：获取日志需要重启开发板</h5>
                     </div>
-                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-3-output');confirm_resetGetBootLog()">
+                    <button id="bu3" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-3-output');confirm_resetGetBootLog()">
                     获取日志
                     </button>
                     <div id='scroll-tab-3-output'></div>
                 </div>
             </section>
-
-            <section class="mdl-layout__tab-panel" id="scroll-tab-1">
-                <div class="page-content">
-                    <div id="scroll-tab-1-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-                    <div id="scroll-tab-1-output">
-                        <div id="scroll-tab-1-output-version"></div>
-                        <div id="scroll-tab-1-output-wifi"></div>
-                        <div id="scroll-tab-1-output-ethernet"></div>
-                    </div>
-                </div>
-            </section>
-
         </main>
     </div>
 </head>
@@ -110,7 +118,7 @@
 <script>
     const shell = require('electron').shell
 
-    const exLinksBtn = document.getElementById('bu3')
+    const exLinksBtn = document.getElementById('bu01')
     exLinksBtn.addEventListener('click', function (event) {
         shell.openExternal('http://community.ruff.io')
     })

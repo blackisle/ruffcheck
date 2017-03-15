@@ -111,10 +111,11 @@ function serialGetVersion() {
                 flowControl: false
             });
 
-
         var output = ''
         port.on('data', function (data) {
             output = output.concat(data.toString())
+            console.log(output)
+
         });
 
 
@@ -129,11 +130,16 @@ function serialGetVersion() {
                     return console.log('Error on write: ', err.message);
                 }
             });
+            console.log('check2')
+
         });
 
         setTimeout(function () {
+            console.log('check3')
+
             var re = /\d\.\d\.\d/g;
             var result = output.match(re)[0]
+            console.log('result000', result)
 
             if (result == null) {
                 document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>' + '重试一次' + '</h3>'
@@ -141,7 +147,7 @@ function serialGetVersion() {
                 port.close()
             }
             else {
-                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>系统版本：' + result + '</h3>'
+                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>系统版本：' + result1 + '</h3>'
 
 
                 port.close()
@@ -367,4 +373,8 @@ function serialGetInfo() {
         progressDisplay('scroll-tab-1-output')
         progressDisplayNone('scroll-tab-1-progress')
     }, 15000)
+}
+
+function checkConnection(){
+
 }
