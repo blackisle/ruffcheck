@@ -31,18 +31,21 @@
             document.getElementById(tab).style.display = "none";
         }
 
-        process.on('uncaughtException', function (err) {
-            if (err.message == 'No path specified') {
-                progressDisplay('scroll-tab-2-output')
-                progressDisplay('scroll-tab-3-output')
-                progressDisplay('scroll-tab-1-output')
+        // process.on('uncaughtException', function (err) {
+        //     if (err.message == 'No path specified') {
+        //         progressDisplay('scroll-tab-2-output')
+        //         progressDisplay('scroll-tab-3-output')
+        //         progressDisplay('scroll-tab-1-output')
 
-                document.getElementById('scroll-tab-2-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
-                document.getElementById('scroll-tab-3-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
-                document.getElementById('scroll-tab-1-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+        //         document.getElementById('scroll-tab-2-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+        //         document.getElementById('scroll-tab-3-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
+        //         document.getElementById('scroll-tab-1-output').innerHTML = '<h1>' + '请确认串口正常工作' + '</h1>'
 
-            }
-        });
+        //     }
+        //     else {
+        //         console.log('error', err.message)
+        //     }
+        // });
     </script>
 
     <!-- Simple header with scrollable tabs. -->
@@ -75,7 +78,10 @@
             <section class="mdl-layout__tab-panel" id="scroll-tab-1">
                 <div class="page-content">
                     <div id="scroll-tab-1-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplay('scroll-tab-1-progress');serialGetVersion()">
+                    <!--<button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplay('scroll-tab-1-progress');serialGetVersion()">-->
+                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplay('scroll-tab-1-progress');checkConnection('scroll-tab-1-output', serialGetVersion)">
+                        
+                        
                     获取信息
                     </button>
                     <div id="scroll-tab-1-output">

@@ -114,8 +114,6 @@ function serialGetVersion() {
         var output = ''
         port.on('data', function (data) {
             output = output.concat(data.toString())
-            console.log(output)
-
         });
 
 
@@ -130,30 +128,23 @@ function serialGetVersion() {
                     return console.log('Error on write: ', err.message);
                 }
             });
-            console.log('check2')
-
         });
 
         setTimeout(function () {
-            console.log('check3')
-
             var re = /\d\.\d\.\d/g;
-            var result = output.match(re)[0]
-            console.log('result000', result)
+            var result = output.match(re)
+
 
             if (result == null) {
+                // progressDisplay('scroll-tab-1-output-version')
                 document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>' + '重试一次' + '</h3>'
-
                 port.close()
             }
             else {
-                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>系统版本：' + result1 + '</h3>'
-
-
+                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>系统版本：' + result[0] + '</h3>'
                 port.close()
             }
         }, 1000)
-
     }, 1000);
 }
 
@@ -375,6 +366,54 @@ function serialGetInfo() {
     }, 15000)
 }
 
-function checkConnection(){
+function checkConnection(tab, action){
+    setTimeout(function () {
+            var port = new SerialPort(
+                selectSerial, {
+                    baudRate: 57600, //波特率
+                    dataBits: 8, //数据位
+                    parity: 'none', //奇偶校验
+                    stopBits: 1, //停止位
+                    flowControl: false
+                });
+                console.log('port', port)
+            var output = '';
+            port.on('data', function (data) {
+                output = output.concat(data.toString());
+                console.log('log', output)
+            });
 
+
+            port.on('open', function () {
+                console.log('open')
+                port.write(' \n', function (err) {
+                    if (err) {
+                        return console.log('Error on write: ', err.message);
+                    }
+                });
+                port.write('cat /ruff/ruffd/package.json\n', function (err) {
+                    if (err) {
+                        return console.log('Error on write: ', err.message);
+                    }
+                });
+            });
+
+
+            setTimeout(function () {
+                var re = /"author": "Nanchao"/;
+                var result = output.match(re)
+
+                if (result == null) {
+                    document.getElementById(tab).innerHTML = '<h3>' + '串口暂时无法使用，请确认连接后再试。' + '</h3>'
+                    port.close()
+                }
+                else {
+                    console.log('good')
+                    // document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>WiFi 地址：' + result + '</h3>'
+                    port.close()
+                    action();
+                }
+            }, 1000)
+
+        }, 1000);
 }
