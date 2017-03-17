@@ -134,7 +134,6 @@ function serialGetVersion() {
             var re = /\d\.\d\.\d/g;
             var result = output.match(re)
 
-
             if (result == null) {
                 // progressDisplay('scroll-tab-1-output-version')
                 document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>' + '重试一次' + '</h3>'
@@ -144,7 +143,7 @@ function serialGetVersion() {
                 document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>系统版本：' + result[0] + '</h3>'
                 port.close()
             }
-        }, 1000)
+        }, 2000)
     }, 1000);
 }
 
@@ -194,7 +193,7 @@ function serialGetWiFi() {
                 document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>WiFi 地址：' + result + '</h3>'
                 port.close()
             }
-        }, 1000)
+        }, 2000)
 
     }, 1000);
 }
@@ -239,7 +238,7 @@ function serialGetEthernet() {
                 document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h3>以太网 IP 地址：' + output.match(re)[1] + '</h3>'
                 port.close()
             }
-        }, 1000)
+        }, 2000)
 
     }, 1000);
 }
@@ -354,16 +353,16 @@ function serialGetInfo() {
 
     setTimeout(function(){
         serialGetWiFi()
-    }, 5000)
+    }, 3000)
 
     setTimeout(function(){
         serialGetEthernet()
-    }, 10000)
+    }, 6000)
 
     setTimeout(function(){
         progressDisplay('scroll-tab-1-output')
         progressDisplayNone('scroll-tab-1-progress')
-    }, 15000)
+    }, 10000)
 }
 
 function checkConnection(tab, action){
@@ -376,22 +375,20 @@ function checkConnection(tab, action){
                     stopBits: 1, //停止位
                     flowControl: false
                 });
-                console.log('port', port)
             var output = '';
+
             port.on('data', function (data) {
                 output = output.concat(data.toString());
-                console.log('log', output)
             });
 
 
             port.on('open', function () {
-                console.log('open')
                 port.write(' \n', function (err) {
                     if (err) {
                         return console.log('Error on write: ', err.message);
                     }
                 });
-                port.write('cat /ruff/ruffd/package.json\n', function (err) {
+                port.write('cat /etc/openwrt_release\n', function (err) {
                     if (err) {
                         return console.log('Error on write: ', err.message);
                     }
@@ -400,16 +397,14 @@ function checkConnection(tab, action){
 
 
             setTimeout(function () {
-                var re = /"author": "Nanchao"/;
+                var re = /DISTRIB_DESCRIPTION='OpenWrt Chaos Calmer 15.05'/;
                 var result = output.match(re)
 
                 if (result == null) {
-                    document.getElementById(tab).innerHTML = '<h3>' + '串口暂时无法使用，请确认连接后再试。' + '</h3>'
+                    document.getElementById(tab).innerHTML = '<h3>' + '串口暂时无法使用，请确认连接后重试。' + '</h3>'
                     port.close()
                 }
                 else {
-                    console.log('good')
-                    // document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>WiFi 地址：' + result + '</h3>'
                     port.close()
                     action();
                 }
