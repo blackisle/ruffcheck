@@ -78,7 +78,7 @@
             <section class="mdl-layout__tab-panel" id="scroll-tab-1">
                 <div class="page-content">
                     <div id="scroll-tab-1-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplay('scroll-tab-1-progress');checkConnection('scroll-tab-1-output', serialGetInfo)">
+                    <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplay('scroll-tab-1-progress');checkConnection('scroll-tab-1-output', 'scroll-tab-1-progress', serialGetInfo)">
 
 
                     获取信息
@@ -97,7 +97,8 @@
                     <div>
                         <h5>注意：板卡重置将会清除开发板上的设置和数据</h5>
                     </div>
-                    <button id="bu2" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplayNone('scroll-tab-2-output');confirm_serialResetSystem();">
+                    <button id="bu2" class="mdl-button mdl-js-button mdl-button--raised" onclick="confirm_serialResetSystem();">
+
                     板卡重置
                     </button>
                     <div id="scroll-tab-2-output"></div>

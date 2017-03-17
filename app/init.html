@@ -163,7 +163,7 @@
     $(document).ready(function () {
       $("#selectSerialList").change(function () {
         selectSerial = $("#selectSerialList").val();
-        console.log(selectSerial);
+        // console.log(selectSerial);
         require('electron').remote.getGlobal('sharedObject').selectedSerial = selectSerial
       })
     });

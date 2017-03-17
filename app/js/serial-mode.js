@@ -8,7 +8,7 @@ function confirm_serialResetSystem() {
         if (confirm("此操作将会清除开发板上的设置和数据。")) {
             progressDisplay('scroll-tab-2-progress')
             document.getElementById('scroll-tab-2-output').innerHTML = ''
-            serialResetSystem()
+            checkConnection('scroll-tab-2-output', 'scroll-tab-2-progress', serialResetSystem);
         } else {
             alert("取消板卡重置")
             progressDisplayNone('scroll-tab-2-progress')
@@ -365,7 +365,7 @@ function serialGetInfo() {
     }, 10000)
 }
 
-function checkConnection(tab, action){
+function checkConnection(tab, progress, action){
     setTimeout(function () {
             var port = new SerialPort(
                 selectSerial, {
@@ -401,6 +401,7 @@ function checkConnection(tab, action){
                 var result = output.match(re)
 
                 if (result == null) {
+                    progressDisplayNone(progress)
                     document.getElementById(tab).innerHTML = '<h3>' + '串口暂时无法使用，请确认连接后重试。' + '</h3>'
                     port.close()
                 }
