@@ -13,6 +13,27 @@
         window.$ = window.jQuery = require("./js/jquery-3.1.1.js");
     </script>
 
+    <style>
+
+  .mdl-layout__header-row {
+    -webkit-user-select: none;
+  }
+
+  .mdl-layout__drawer {
+    -webkit-user-select: none;
+  }
+
+  .mdl-layout__tab-bar {
+    -webkit-user-select: none;
+  }
+
+  .mdl-js-ripple-effect {
+    -webkit-user-select: none;
+  }
+
+  /*mdl-layout__tab-bar mdl-js-ripple-effect*/
+  </style>
+
     <script>
         var selectSerial = require('electron').remote.getGlobal('sharedObject').selectedSerial
 
@@ -54,7 +75,7 @@
             <div class="mdl-layout__header-row">
                 <!-- Title -->
                 <span class="mdl-layout-title">
-                    当前选择串口为 <i class="material-icons">usb</i><script>document.write(selectSerial);</script>
+                    当前串口连接: <script>document.write(selectSerial);</script>
                 </span>
             </div>
             <!-- Tabs -->
@@ -78,9 +99,10 @@
             <section class="mdl-layout__tab-panel" id="scroll-tab-1">
                 <div class="page-content">
                     <div id="scroll-tab-1-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                    <div>
+                        <h5>注意：此操作将会获取系统版本, WiFi 和以太网信息。</h5>
+                    </div>
                     <button id="bu1" class="mdl-button mdl-js-button mdl-button--raised" onclick="progressDisplay('scroll-tab-1-progress');checkConnection('scroll-tab-1-output', 'scroll-tab-1-progress', serialGetInfo)">
-
-
                     获取信息
                     </button>
                     <div id="scroll-tab-1-output">
@@ -98,7 +120,6 @@
                         <h5>注意：板卡重置将会清除开发板上的设置和数据</h5>
                     </div>
                     <button id="bu2" class="mdl-button mdl-js-button mdl-button--raised" onclick="confirm_serialResetSystem();">
-
                     板卡重置
                     </button>
                     <div id="scroll-tab-2-output"></div>
