@@ -71,12 +71,12 @@ function serialResetSystem() {
 
             if (result == null) {
                 progressDisplayNone('scroll-tab-2-progress');
-                document.getElementById('scroll-tab-2-output').innerHTML = '<h3>' + '重试一次' + '</h3>';
+                document.getElementById('scroll-tab-2-output').innerHTML = '<h4>' + '重试一次' + '</h4>';
                 port.close();
             }
             else {
                 progressDisplayNone('scroll-tab-2-progress');
-                document.getElementById('scroll-tab-2-output').innerHTML = '<h3>' + '重置成功' + '</h3>';
+                document.getElementById('scroll-tab-2-output').innerHTML = '<h4>' + '重置成功' + '</h4>';
                 port.close();
             }
         }, 15000)
@@ -136,11 +136,11 @@ function serialGetVersion() {
 
             if (result == null) {
                 // progressDisplay('scroll-tab-1-output-version')
-                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>' + '重试一次' + '</h3>'
+                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h4>' + '重试一次' + '</h4>'
                 port.close()
             }
             else {
-                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h3>系统版本：' + result[0] + '</h3>'
+                document.getElementById('scroll-tab-1-output-version').innerHTML = '<h4>系统版本：' + result[0] + '</h4>'
                 port.close()
             }
         }, 2000)
@@ -182,15 +182,15 @@ function serialGetWiFi() {
             var result = output.match(re)[1]
 
             if (result == null) {
-                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>' + 'WiFi：重试一次' + '</h3>'
+                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h4>' + 'WiFi：重试一次' + '</h4>'
                 port.close()
             }
             else if (result == '192.168.78.1') {
-                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>' + 'WiFi：未配置' + '</h3>'
+                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h4>' + 'WiFi：未配置' + '</h4>'
                 port.close()
             }
             else {
-                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h3>WiFi 地址：' + result + '</h3>'
+                document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h4>WiFi 地址：' + result + '</h4>'
                 port.close()
             }
         }, 2000)
@@ -231,11 +231,11 @@ function serialGetEthernet() {
             var re = /eth0.2\s[\s\S]{0,100}inet addr:([\d.]*)/;
 
             if (output.match(re) == null) {
-                document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h3>' + '以太网：未连接' + '</h3>'
+                document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h4>' + '以太网：未连接' + '</h4>'
                 port.close()
             }
             else {
-                document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h3>以太网 IP 地址：' + output.match(re)[1] + '</h3>'
+                document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h4>以太网 IP 地址：' + output.match(re)[1] + '</h4>'
                 port.close()
             }
         }, 2000)
@@ -353,16 +353,16 @@ function serialGetInfo() {
 
     setTimeout(function(){
         serialGetWiFi()
-    }, 3000)
+    }, 4000)
 
     setTimeout(function(){
         serialGetEthernet()
-    }, 6000)
+    }, 8000)
 
     setTimeout(function(){
         progressDisplay('scroll-tab-1-output')
         progressDisplayNone('scroll-tab-1-progress')
-    }, 10000)
+    }, 12000)
 }
 
 function checkConnection(tab, progress, action){
@@ -402,7 +402,7 @@ function checkConnection(tab, progress, action){
 
                 if (result == null) {
                     progressDisplayNone(progress)
-                    document.getElementById(tab).innerHTML = '<h3>' + '串口暂时无法使用，请确认连接后重试。' + '</h3>'
+                    document.getElementById(tab).innerHTML = '<h4>' + '串口暂时无法使用，请确认连接后重试。' + '</h4>'
                     port.close()
                 }
                 else {

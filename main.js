@@ -8,7 +8,7 @@ var ipc = require('electron').ipcMain;
 function createMainWindow() {
     mainWindow = new BrowserWindow({
         width: 430,
-        height: 480,
+        height: 500,
         frame: true
     })
 
@@ -59,7 +59,7 @@ ipc.on('create-init-window', function() {
 ipc.on('create-main-window', function() {
     mainWindow = new BrowserWindow({
         width: 430,
-        height: 480,
+        height: 500,
         fullscreen: false,
         resizable: true,
         skipTaskbar: false,
