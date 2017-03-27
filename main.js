@@ -53,7 +53,7 @@ ipc.on('create-init-window', function() {
     })
     // subWindow.webContents.openDevTools()
     subWindow.loadURL('file://' + __dirname + '/app/init.html')
-    mainWindow.hide()
+    // mainWindow.hide()
 })
 
 ipc.on('create-main-window', function() {
@@ -68,7 +68,7 @@ ipc.on('create-main-window', function() {
     })
     // mainWindow.webContents.openDevTools()
     mainWindow.loadURL('file://' + __dirname + '/app/index.html')
-    initWindow.hide()
+    initWindow.close()
 })
 
 global.sharedObject = {
