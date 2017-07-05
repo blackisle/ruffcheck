@@ -14,7 +14,7 @@ function createMainWindow() {
 
     mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 
     mainWindow.on('closed', function() {
 
@@ -32,7 +32,7 @@ function createInitWindow() {
 
     initWindow.loadURL(`file://${__dirname}/app/init.html`);
 
-    // initWindow.webContents.openDevTools()
+    initWindow.webContents.openDevTools()
 
     initWindow.on('closed', function() {
 

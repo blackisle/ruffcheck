@@ -13,162 +13,161 @@
 
 
 <head>
-    <title>ruff-mbd-v1 自救指南</title>
+  <title>ruff-mbd-v1 自救指南</title>
 
-<style>
+  <style>
+    .mdl-layout__header-row {
+      -webkit-user-select: none;
+    }
 
-  .mdl-layout__header-row {
-    -webkit-user-select: none;
-  }
+    .mdl-layout__drawer {
+      -webkit-user-select: none;
+    }
 
-  .mdl-layout__drawer {
-    -webkit-user-select: none;
-  }
+    .mdl-select {
+      position: relative;
+      font-size: 16px;
+      display: inline-block;
+      box-sizing: border-box;
+      width: 300px;
+      max-width: 100%;
+      margin: 0;
+      padding: 20px 0;
+    }
 
-  .mdl-select {
-    position: relative;
-    font-size: 16px;
-    display: inline-block;
-    box-sizing: border-box;
-    width: 300px;
-    max-width: 100%;
-    margin: 0;
-    padding: 20px 0;
-  }
+    .mdl-select__input {
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      display: inline-block;
+      font-size: 16px;
+      margin: 0;
+      padding: 4px 0;
+      width: 100%;
+      background: 16px;
+      text-align: left;
+      color: inherit;
+    }
 
-  .mdl-select__input {
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-    display: inline-block;
-    font-size: 16px;
-    margin: 0;
-    padding: 4px 0;
-    width: 100%;
-    background: 16px;
-    text-align: left;
-    color: inherit;
-  }
+    .mdl-select.is-focused .mdl-select__input {
+      outline: none;
+    }
 
-  .mdl-select.is-focused .mdl-select__input {
-    outline: none;
-  }
+    .mdl-select.is-invalid .mdl-select__input {
+      border-color: rgb(222, 50, 38);
+      box-shadow: none;
+    }
 
-  .mdl-select.is-invalid .mdl-select__input {
-    border-color: rgb(222, 50, 38);
-    box-shadow: none;
-  }
+    .mdl-select.is-disabled .mdl-select__input {
+      background-color: transparent;
+      border-bottom: 1px dotted rgba(0, 0, 0, 0.12);
+    }
 
-  .mdl-select.is-disabled .mdl-select__input {
-    background-color: transparent;
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.12);
-  }
+    .mdl-select__label {
+      bottom: 0;
+      color: rgba(0, 0, 0, 0.26);
+      font-size: 16px;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 24px;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: left;
+    }
 
-  .mdl-select__label {
-    bottom: 0;
-    color: rgba(0, 0, 0, 0.26);
-    font-size: 16px;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 24px;
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: left;
-  }
+    .mdl-select.is-dirty .mdl-select__label {
+      visibility: hidden;
+    }
 
-  .mdl-select.is-dirty .mdl-select__label {
-    visibility: hidden;
-  }
+    .mdl-select--floating-label .mdl-textfield__label {
+      -webkit-transition-duration: 0.2s;
+      transition-duration: 0.2s;
+      -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-  .mdl-select--floating-label .mdl-textfield__label {
-    -webkit-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
+    .mdl-select--floating-label.is-focused .mdl-select__label,
+    .mdl-select--floating-label.is-dirty .mdl-select__label {
+      color: rgb(63, 81, 181);
+      font-size: 12px;
+      top: 4px;
+      visibility: visible;
+    }
 
-  .mdl-select--floating-label.is-focused .mdl-select__label,
-  .mdl-select--floating-label.is-dirty .mdl-select__label {
-    color: rgb(63, 81, 181);
-    font-size: 12px;
-    top: 4px;
-    visibility: visible;
-  }
+    .mdl-select--floating-label.is-focused .mdl-select__expandable-holder .mdl-select__label,
+    .mdl-select--floating-label.is-dirty .mdl-select__expandable-holder .mdl-select__label {
+      top: -16px;
+    }
 
-  .mdl-select--floating-label.is-focused .mdl-select__expandable-holder .mdl-select__label,
-  .mdl-select--floating-label.is-dirty .mdl-select__expandable-holder .mdl-select__label {
-    top: -16px;
-  }
+    .mdl-select--floating-label.is-invalid .mdl-select__label {
+      color: rgb(222, 50, 38);
+      font-size: 12px;
+    }
 
-  .mdl-select--floating-label.is-invalid .mdl-select__label {
-    color: rgb(222, 50, 38);
-    font-size: 12px;
-  }
+    .mdl-select__label:after {
+      background-color: rgb(63, 81, 181);
+      bottom: 20px;
+      content: '';
+      height: 2px;
+      left: 45%;
+      position: absolute;
+      -webkit-transition-duration: 0.2s;
+      transition-duration: 0.2s;
+      -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      visibility: hidden;
+      width: 10px;
+    }
 
-  .mdl-select__label:after {
-    background-color: rgb(63, 81, 181);
-    bottom: 20px;
-    content: '';
-    height: 2px;
-    left: 45%;
-    position: absolute;
-    -webkit-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    visibility: hidden;
-    width: 10px;
-  }
+    .mdl-select.is-focused .mdl-select__label:after {
+      left: 0;
+      visibility: visible;
+      width: 100%;
+    }
 
-  .mdl-select.is-focused .mdl-select__label:after {
-    left: 0;
-    visibility: visible;
-    width: 100%;
-  }
+    .mdl-select.is-invalid .mdl-select__label:after {
+      background-color: rgb(222, 50, 38);
+    }
 
-  .mdl-select.is-invalid .mdl-select__label:after {
-    background-color: rgb(222, 50, 38);
-  }
+    .mdl-select__error {
+      color: rgb(222, 50, 38);
+      position: absolute;
+      font-size: 12px;
+      margin-top: 3px;
+      visibility: hidden;
+    }
 
-  .mdl-select__error {
-    color: rgb(222, 50, 38);
-    position: absolute;
-    font-size: 12px;
-    margin-top: 3px;
-    visibility: hidden;
-  }
+    .mdl-select.is-invalid .mdl-select__error {
+      visibility: visible;
+    }
 
-  .mdl-select.is-invalid .mdl-select__error {
-    visibility: visible;
-  }
+    .mdl-select__expandable-holder {
+      display: inline-block;
+      position: relative;
+      margin-left: 32px;
+      -webkit-transition-duration: 0.2s;
+      transition-duration: 0.2s;
+      -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+      max-width: 0.1px;
+    }
 
-  .mdl-select__expandable-holder {
-    display: inline-block;
-    position: relative;
-    margin-left: 32px;
-    -webkit-transition-duration: 0.2s;
-    transition-duration: 0.2s;
-    -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    display: inline-block;
-    max-width: 0.1px;
-  }
+    .mdl-select.is-focused .mdl-select__expandable-holder,
+    .mdl-select.is-dirty .mdl-select__expandable-holder {
+      max-width: 600px;
+    }
 
-  .mdl-select.is-focused .mdl-select__expandable-holder,
-  .mdl-select.is-dirty .mdl-select__expandable-holder {
-    max-width: 600px;
-  }
+    .mdl-select__expandable-holder .mdl-select__label:after {
+      bottom: 0;
+    }
+  </style>
 
-  .mdl-select__expandable-holder .mdl-select__label:after {
-    bottom: 0;
-  }
-</style>
+  <script src="./js/serial-mode.js"></script>
 
-<script src="./js/serial-mode.js"></script>
-
-<script>
+  <script>
     getSerialList()
     var selectSerial
 
@@ -339,7 +338,7 @@
       cssClass: 'mdl-js-select',
       widget: true
     });
-</script>
+  </script>
 </head>
 
 <body>
@@ -361,7 +360,13 @@
     </div>
     <main class="mdl-layout__content">
       <div class="page-content">
-        <div>
+        <!--<p id="demo">My First Paragraph.</p>-->
+
+        <div id="guide">
+
+        </div>
+
+        <!--<div>
           <h6>1. 通过 USB 线缆连接开发板和开发电脑</h6>
           <h6>2. 安装驱动</h6>
           <ul>
@@ -375,7 +380,7 @@
             <li>确认<code>Prolific USB-to-Serial Common Port</code> 对应的 COM 端口。</li>
             <li>点击刷新获取串口列表</li>
           </ol>
-        </div>
+        </div>-->
 
         <form action="#">
           <div class="mdl-select mdl-js-select mdl-select--floating-label">
@@ -403,6 +408,35 @@
 </body>
 
 <script>
+  if (os.platform() === 'darwin') {
+    document.getElementById("guide").innerHTML = "<h6>1. 通过 USB 线缆连接开发板和开发电脑</h6>\
+          <h6>2. 安装驱动</h6>\
+          <ul>\
+            <li>http://www.prolific.com.tw/UserFiles/files/PL2303_MacOSX_1_6_1_20160309.zip</li>\
+          </ul>\
+          <h6>3. 确认端口</h6>\
+          <ol type='a'>\
+            <li>打开终端，输入命令 <code>ls /dev/cu.usb*</code></li>\
+            <li>得到输出信息 <code>/dev/cu.usbserial</code></li>\
+            <li>因此开发板串口对应的 USB 设备文件的完整路径为：<code>dev/cu.usbserial</code></li>\
+          </ol>";
+  }
+  else if (os.platform() === 'win32'){
+    document.getElementById("guide").innerHTML = "<h6>1. 通过 USB 线缆连接开发板和开发电脑</h6>\
+          <h6>2. 安装驱动</h6>\
+          <ul>\
+            <li>Windows 10: 通过 windows update 自动更新驱动。</li>\
+            <li>Windows 7: 下载驱动, http://www.prolific.com.tw/UserFiles/files/PL2303_Prolific_DriverInstaller_v1_12_0.zip</li>\
+          </ul>\
+          <h6>3. 确认端口</h6>\
+          <ol type='a'>\
+            <li>开始→运行→<code>devmgmt.msc</code></li>\
+            <li>在设备管理器，查看 <code>端口（COM 和 LPT）</code></li>\
+            <li>确认<code>Prolific USB-to-Serial Common Port</code> 对应的 COM 端口。</li>\
+            <li>点击刷新获取串口列表</li>\
+          </ol>";
+  }
+
   document.getElementById('bu1').addEventListener('click', function () {
     getSerialList()
   })
