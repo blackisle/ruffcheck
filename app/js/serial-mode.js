@@ -73,8 +73,7 @@ function serialResetSystem() {
                 progressDisplayNone('scroll-tab-2-progress');
                 document.getElementById('scroll-tab-2-output').innerHTML = '<h4>' + '重试一次' + '</h4>';
                 port.close();
-            }
-            else {
+            } else {
                 progressDisplayNone('scroll-tab-2-progress');
                 document.getElementById('scroll-tab-2-output').innerHTML = '<h4>' + '重置成功' + '</h4>';
                 port.close();
@@ -86,7 +85,7 @@ function serialResetSystem() {
 
 function getSerialList() {
     var SerialPort = require('serialport');
-        $('#selectSerialList').html('<option value=""></option>')
+    $('#selectSerialList').html('<option value=""></option>')
 
     SerialPort.list(function (err, ports) {
         var serialList = []
@@ -114,6 +113,7 @@ function serialGetVersion() {
         var output = ''
         port.on('data', function (data) {
             output = output.concat(data.toString())
+            console.log(output)
         });
 
 
@@ -131,15 +131,14 @@ function serialGetVersion() {
         });
 
         setTimeout(function () {
-            var re = /\d\.\d\.\d/g;
+            var re = /\d\.\d{1,}\.\d{1,}/g;
             var result = output.match(re)
 
             if (result == null) {
                 // progressDisplay('scroll-tab-1-output-version')
                 document.getElementById('scroll-tab-1-output-version').innerHTML = '<h4>' + '重试一次' + '</h4>'
                 port.close()
-            }
-            else {
+            } else {
                 document.getElementById('scroll-tab-1-output-version').innerHTML = '<h4>系统版本：' + result[0] + '</h4>'
                 port.close()
             }
@@ -184,12 +183,10 @@ function serialGetWiFi() {
             if (result == null) {
                 document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h4>' + 'WiFi：重试一次' + '</h4>'
                 port.close()
-            }
-            else if (result == '192.168.78.1') {
+            } else if (result == '192.168.78.1') {
                 document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h4>' + 'WiFi：未配置' + '</h4>'
                 port.close()
-            }
-            else {
+            } else {
                 document.getElementById('scroll-tab-1-output-wifi').innerHTML = '<h4>WiFi 地址：' + result + '</h4>'
                 port.close()
             }
@@ -231,11 +228,10 @@ function serialGetEthernet() {
             var re = /eth0.2\s[\s\S]{0,100}inet addr:([\d.]*)/;
 
             if (output.match(re) == null) {
-                document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h4>' + '以太网：未连接' + '</h4>'
+                document.getElementById('scroll-tab-1-output-ethernet').innerHTML = '<h4>' + '以太网：未连接' + '</h4>'
                 port.close()
-            }
-            else {
-                document.getElementById('scroll-tab-1-output-ethernet').innerHTML ='<h4>以太网 IP 地址：' + output.match(re)[1] + '</h4>'
+            } else {
+                document.getElementById('scroll-tab-1-output-ethernet').innerHTML = '<h4>以太网 IP 地址：' + output.match(re)[1] + '</h4>'
                 port.close()
             }
         }, 2000)
@@ -281,7 +277,7 @@ function serialGetLog() {
         });
 
         setTimeout(function () {
-            output = output.replace(/root@OpenWrt:\/# dmesg/,'###Log###')
+            output = output.replace(/root@OpenWrt:\/# dmesg/, '###Log###')
             progressDisplayNone('scroll-tab-3-progress')
             document.getElementById('scroll-tab-3-output').innerText = output
             progressDisplay('scroll-tab-3-output')
@@ -302,27 +298,27 @@ function serialGetBootLog() {
                 flowControl: false
             });
 
-            port.on('open', function () {
-                setTimeout(function () {
-                    port.write(' \n', function (err) {
-                        if (err) {
-                            return console.log('Error on write: ', err.message);
-                        }
-                    });
+        port.on('open', function () {
+            setTimeout(function () {
+                port.write(' \n', function (err) {
+                    if (err) {
+                        return console.log('Error on write: ', err.message);
+                    }
+                });
 
-                    port.write('dmesg\n', function (err) {
-                        if (err) {
-                            return console.log('Error on write: ', err.message);
-                        }
-                    });
+                port.write('dmesg\n', function (err) {
+                    if (err) {
+                        return console.log('Error on write: ', err.message);
+                    }
+                });
 
-                    port.write('logread\n', function (err) {
-                        if (err) {
-                            return console.log('Error on write: ', err.message);
-                        }
-                    });
-                }, 90000);
-            });
+                port.write('logread\n', function (err) {
+                    if (err) {
+                        return console.log('Error on write: ', err.message);
+                    }
+                });
+            }, 90000);
+        });
 
 
         var output = ''
@@ -334,11 +330,11 @@ function serialGetBootLog() {
 
         setTimeout(function () {
             progressDisplayNone('scroll-tab-3-progress')
-            output = output.replace(/root@OpenWrt:\/# dmesg/,'###Log###')
-            output = output.replace(/root@OpenWrt:\/# logread/,'###Log###')
-            output = output.replace(/dmesg/,'')
-            output = output.replace(/logread/,'')
-            output = output.replace(/root@OpenWrt:\/#/,'')
+            output = output.replace(/root@OpenWrt:\/# dmesg/, '###Log###')
+            output = output.replace(/root@OpenWrt:\/# logread/, '###Log###')
+            output = output.replace(/dmesg/, '')
+            output = output.replace(/logread/, '')
+            output = output.replace(/root@OpenWrt:\/#/, '')
             document.getElementById('scroll-tab-3-output').innerText = output
             progressDisplay('scroll-tab-3-output')
             port.close()
@@ -351,65 +347,64 @@ function serialGetBootLog() {
 function serialGetInfo() {
     serialGetVersion()
 
-    setTimeout(function(){
+    setTimeout(function () {
         serialGetWiFi()
     }, 4000)
 
-    setTimeout(function(){
+    setTimeout(function () {
         serialGetEthernet()
     }, 8000)
 
-    setTimeout(function(){
+    setTimeout(function () {
         progressDisplay('scroll-tab-1-output')
         progressDisplayNone('scroll-tab-1-progress')
     }, 12000)
 }
 
-function checkConnection(tab, progress, action){
+function checkConnection(tab, progress, action) {
     setTimeout(function () {
-            var port = new SerialPort(
-                selectSerial, {
-                    baudRate: 57600, //波特率
-                    dataBits: 8, //数据位
-                    parity: 'none', //奇偶校验
-                    stopBits: 1, //停止位
-                    flowControl: false
-                });
-            var output = '';
-
-            port.on('data', function (data) {
-                output = output.concat(data.toString());
+        var port = new SerialPort(
+            selectSerial, {
+                baudRate: 57600, //波特率
+                dataBits: 8, //数据位
+                parity: 'none', //奇偶校验
+                stopBits: 1, //停止位
+                flowControl: false
             });
+        var output = '';
+
+        port.on('data', function (data) {
+            output = output.concat(data.toString());
+        });
 
 
-            port.on('open', function () {
-                port.write(' \n', function (err) {
-                    if (err) {
-                        return console.log('Error on write: ', err.message);
-                    }
-                });
-                port.write('cat /etc/openwrt_release\n', function (err) {
-                    if (err) {
-                        return console.log('Error on write: ', err.message);
-                    }
-                });
+        port.on('open', function () {
+            port.write(' \n', function (err) {
+                if (err) {
+                    return console.log('Error on write: ', err.message);
+                }
             });
-
-
-            setTimeout(function () {
-                var re = /DISTRIB_DESCRIPTION='OpenWrt Chaos Calmer 15.05'/;
-                var result = output.match(re)
-
-                if (result == null) {
-                    progressDisplayNone(progress)
-                    document.getElementById(tab).innerHTML = '<h4>' + '串口暂时无法使用，请确认连接后重试。' + '</h4>'
-                    port.close()
+            port.write('cat /etc/openwrt_release\n', function (err) {
+                if (err) {
+                    return console.log('Error on write: ', err.message);
                 }
-                else {
-                    port.close()
-                    action();
-                }
-            }, 1000)
+            });
+        });
 
-        }, 1000);
+
+        setTimeout(function () {
+            var re = /DISTRIB_DESCRIPTION='OpenWrt Chaos Calmer 15.05'/;
+            var result = output.match(re)
+
+            if (result == null) {
+                progressDisplayNone(progress)
+                document.getElementById(tab).innerHTML = '<h4>' + '串口暂时无法使用，请确认连接后重试。' + '</h4>'
+                port.close()
+            } else {
+                port.close()
+                action();
+            }
+        }, 1000)
+
+    }, 1000);
 }

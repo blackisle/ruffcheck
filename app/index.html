@@ -14,24 +14,23 @@
     </script>
 
     <style>
+        .mdl-layout__header-row {
+            -webkit-user-select: none;
+        }
 
-  .mdl-layout__header-row {
-    -webkit-user-select: none;
-  }
+        .mdl-layout__drawer {
+            -webkit-user-select: none;
+        }
 
-  .mdl-layout__drawer {
-    -webkit-user-select: none;
-  }
+        .mdl-layout__tab-bar {
+            -webkit-user-select: none;
+        }
 
-  .mdl-layout__tab-bar {
-    -webkit-user-select: none;
-  }
+        .mdl-js-ripple-effect {
+            -webkit-user-select: none;
+        }
 
-  .mdl-js-ripple-effect {
-    -webkit-user-select: none;
-  }
-
-  </style>
+    </style>
 
     <script>
         var selectSerial = require('electron').remote.getGlobal('sharedObject').selectedSerial
