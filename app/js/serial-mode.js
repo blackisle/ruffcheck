@@ -90,6 +90,10 @@ function getSerialList() {
     SerialPort.list(function (err, ports) {
         var serialList = []
         ports.forEach(function (port) {
+            console.log(port)
+            if (/tooth/.test(port.comName)){
+                return
+            }
             serialList.push(port.comName)
         });
 

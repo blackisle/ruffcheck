@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "node_modules/electron/dist/Electron.app/Contents/MacOS/Electron main.js",
+    "dist": "node_modules/.bin/electron-builder"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "electron": "^1.6.11",
+    "electron-builder": "^19.16.0"
+  },
   "author": "",
   "license": "ISC",
   "description": "",

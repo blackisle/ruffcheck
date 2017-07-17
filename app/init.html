@@ -254,21 +254,17 @@
 
 <script>
   if (os.platform() === 'darwin') {
-    document.getElementById("guide").innerHTML = "<h6>1. 通过 USB 线缆连接开发板和开发电脑</h6>\
+    document.getElementById("guide").innerHTML = "<h6>1. 通过 USB 线缆连接开发板和开发电脑，同时确认当前开发电脑只连接了一块开发板。</h6>\
           <h6>2. 安装驱动</h6>\
           <ul>\
             <li>http://www.prolific.com.tw/UserFiles/files/PL2303_MacOSX_1_6_1_20160309.zip</li>\
           </ul>\
-          <h6>3. 确认端口</h6>\
-          <ol type='a'>\
-            <li>打开终端，输入命令 <code>ls /dev/cu.usb*</code></li>\
-            <li>得到输出信息 <code>/dev/cu.usbserial</code></li>\
-            <li>因此开发板串口对应的 USB 设备文件的完整路径为：<code>dev/cu.usbserial</code></li>\
-          </ol>";
+          <h6>3. 点击下方刷新按钮</h6>\
+          <h6>4. 从列表选择串口确定</h6>";
   }
   else if (os.platform() === 'win32'){
     document.getElementById("guide").innerHTML = "<h6>1. 通过 USB 线缆连接开发板和开发电脑</h6>\
-          <h6>2. 安装驱动</h6>\
+          <h6> 2. 安装驱动</h6>\
           <ul>\
             <li>Windows 10: 通过 windows update 自动更新驱动。</li>\
             <li>Windows 7: 下载驱动, http://www.prolific.com.tw/UserFiles/files/PL2303_Prolific_DriverInstaller_v1_12_0.zip</li>\
