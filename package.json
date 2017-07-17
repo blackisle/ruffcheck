@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "node_modules/electron/dist/Electron.app/Contents/MacOS/Electron main.js",
+    "rebuild": "node_modules/.bin/electron-rebuild",
+    "start": "node_modules/.bin/electron main.js",
     "dist": "node_modules/.bin/electron-builder"
   },
   "devDependencies": {
     "electron": "^1.6.11",
-    "electron-builder": "^19.16.0"
+    "electron-builder": "^19.16.0",
+    "electron-rebuild": "^1.5.11"
   },
   "author": "",
   "license": "ISC",
