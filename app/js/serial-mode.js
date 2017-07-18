@@ -1,6 +1,7 @@
 const os = require('os');
 const SerialPort = require("serialport");
-var result
+var result;
+var bootLog = '';
 
 
 function confirm_serialResetSystem() {
@@ -325,27 +326,36 @@ function serialGetBootLog() {
         });
 
 
-        var output = ''
+        // var output = ''
 
         port.on('data', function (data) {
-            output = output.concat(data.toString())
+            bootLog = bootLog.concat(data.toString())
         });
 
 
         setTimeout(function () {
             progressDisplayNone('scroll-tab-3-progress')
-            output = output.replace(/root@OpenWrt:\/# dmesg/, '###Log###')
-            output = output.replace(/root@OpenWrt:\/# logread/, '###Log###')
-            output = output.replace(/dmesg/, '')
-            output = output.replace(/logread/, '')
-            output = output.replace(/root@OpenWrt:\/#/, '')
-            document.getElementById('scroll-tab-3-output').innerText = output
+            bootLog = bootLog.replace(/root@OpenWrt:\/# dmesg/, '###Log###')
+            bootLog = bootLog.replace(/root@OpenWrt:\/# logread/, '###Log###')
+            bootLog = bootLog.replace(/dmesg/, '')
+            bootLog = bootLog.replace(/logread/, '')
+            bootLog = bootLog.replace(/root@OpenWrt:\/#/, '')
+            document.getElementById('scroll-tab-3-output').innerText = bootLog
             progressDisplay('scroll-tab-3-output')
             port.close()
         }, 110000)
 
 
     }, 1000);
+}
+
+function saveBootLog() {
+    if (bootLog == '') {
+        alert("请先获取日志，再导出日志");
+    }
+    else {
+        console.log('###',bootLog);
+    }
 }
 
 function serialGetInfo() {
